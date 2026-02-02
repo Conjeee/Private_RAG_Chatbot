@@ -1,5 +1,5 @@
-from vector_db import VectorDB
-from llm_engine import LLMEngine
+from src.vector_db import VectorDB
+from src.llm_engine import LLMEngine
 
 class RAGPipeline:
     def __init__(self):
