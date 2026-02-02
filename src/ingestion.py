@@ -4,13 +4,14 @@ import sys
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 # -----------------------------------------------
 from langchain_community.document_loaders import PyPDFLoader
-from vector_db import VectorDB
+from src.vector_db import VectorDB
 
 class Ingester:
     def __init__(self):
-        self.data_path = "./data"
-        self.chunk_size = 500
-        self.chunk_overlap = 50
+        self.data_path = "./static" 
+        
+        self.chunk_size = 1000
+        self.chunk_overlap = 100
         self.db = VectorDB()
 
     def run(self):
