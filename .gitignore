@@ -1,0 +1,8 @@
+models/
+storage/
+data/*
+__pycache__/
+*.py[cod]
+.DS_Store
+!data/.gitkeep
+env/
