@@ -6,8 +6,6 @@ A completely offline, privacy-first **Retrieval Augmented Generation (RAG)** cha
 Unlike standard AI tools that send your data to the cloud (OpenAI/Anthropic), this project runs the entire "Brain" (LLM) and "Memory" (Vector Database) locally on your laptop. **Your documents never leave your machine.**
 ## Screenshots
 
-## Screenshots
-
 ![App Screenshot](assets/screenshot.png)
 
 ## 🚀 Key Features
