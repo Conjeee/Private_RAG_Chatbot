@@ -18,12 +18,12 @@ class Ingester:
         # 1. Check for PDFs
         if not os.path.exists(self.data_path):
             os.makedirs(self.data_path)
-            print("Please put your PDF files in ./data and run again.")
+            print("Please put your PDF files in ./static and run again.")
             return
 
         files = [f for f in os.listdir(self.data_path) if f.endswith(".pdf")]
         if not files:
-            print("❌ No PDF files found in ./data folder.")
+            print("❌ No PDF files found in ./static folder.")
             return
 
         print(f"📖 Found {len(files)} PDFs. Starting ingestion...")
