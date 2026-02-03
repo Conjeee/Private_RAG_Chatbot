@@ -1,9 +1,7 @@
 import os
 import sys
 from langchain_community.llms import LlamaCpp
-# --- FIX: New Import Paths for LangChain v0.2+ ---
 from langchain_core.callbacks import CallbackManager, StreamingStdOutCallbackHandler
-# -------------------------------------------------
 
 class LLMEngine:
     def __init__(self, model_path="./models/Phi-3-mini-4k-instruct-q4.gguf"):

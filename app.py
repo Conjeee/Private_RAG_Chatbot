@@ -1,6 +1,6 @@
 import os
 import streamlit as st
-from src.rag_pipeline import RAGPipeline
+from src import RAGPipeline
 
 st.set_page_config(page_title="Private RAG Chatbot", page_icon="🤖")
 

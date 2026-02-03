@@ -1,10 +1,8 @@
 import os
 import sys
-# --- FIX: New Import Path for Text Splitters ---
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-# -----------------------------------------------
 from langchain_community.document_loaders import PyPDFLoader
-from src.vector_db import VectorDB
+from . import VectorDB
 
 class Ingester:
     def __init__(self):
