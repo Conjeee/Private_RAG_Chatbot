@@ -1,33 +1,53 @@
 import os
-from huggingface_hub import hf_hub_download
+from huggingface_hub import hf_hub_download, snapshot_download
 
-def download_model():
-    # Configuration
-    REPO_ID = "microsoft/Phi-3-mini-4k-instruct-gguf"
-    FILENAME = "Phi-3-mini-4k-instruct-q4.gguf"
+def download_models():
+    # Base Model Directory
     MODELS_DIR = "./models"
-    
-    # Check if file already exists
-    file_path = os.path.join(MODELS_DIR, FILENAME)
-    if os.path.exists(file_path):
-        print(f"✅ Model found at: {file_path}")
-        return
+    os.makedirs(MODELS_DIR, exist_ok=True)
 
-    print(f"⏳ Downloading {FILENAME} from HuggingFace... (This may take a while)")
+    # --- 1. The Main Brain (Phi-3 GGUF) ---
+    # This is a single file download
+    print("\n⬇️  Phase 1: Downloading LLM (Phi-3)...")
+    PHI_REPO = "microsoft/Phi-3-mini-4k-instruct-gguf"
+    PHI_FILE = "Phi-3-mini-4k-instruct-q4.gguf"
+    phi_path = os.path.join(MODELS_DIR, PHI_FILE)
     
-    # Download logic
-    try:
-        hf_hub_download(
-            repo_id=REPO_ID,
-            filename=FILENAME,
-            local_dir=MODELS_DIR,
-            local_dir_use_symlinks=False
-        )
-        print("✅ Download complete!")
-    except Exception as e:
-        print(f"❌ Error downloading model: {e}")
+    if os.path.exists(phi_path):
+        print(f"   ✅ Phi-3 found at: {phi_path}")
+    else:
+        try:
+            print("   ⏳ Downloading Phi-3... (approx 2.4 GB)")
+            hf_hub_download(
+                repo_id=PHI_REPO,
+                filename=PHI_FILE,
+                local_dir=MODELS_DIR,
+                local_dir_use_symlinks=False
+            )
+            print("   ✅ Phi-3 Download complete!")
+        except Exception as e:
+            print(f"   ❌ Error downloading Phi-3: {e}")
+
+    # --- 2. The Embedding Model (MiniLM) ---
+    # This is a FOLDER download (snapshot)
+    print("\n⬇️  Phase 2: Downloading Embedding Model (MiniLM)...")
+    EMBED_REPO = "sentence-transformers/all-MiniLM-L6-v2"
+    EMBED_DIR = os.path.join(MODELS_DIR, "all-MiniLM-L6-v2")
+    
+    # Check if folder exists and is not empty
+    if os.path.exists(EMBED_DIR) and os.listdir(EMBED_DIR):
+        print(f"   ✅ Embedding model found at: {EMBED_DIR}")
+    else:
+        try:
+            print("   ⏳ Downloading Embedding Model... (approx 80 MB)")
+            snapshot_download(
+                repo_id=EMBED_REPO,
+                local_dir=EMBED_DIR,
+                local_dir_use_symlinks=False  # Crucial for offline use
+            )
+            print("   ✅ Embedding Model Download complete!")
+        except Exception as e:
+            print(f"   ❌ Error downloading Embedding Model: {e}")
 
 if __name__ == "__main__":
-    # Ensure directory exists
-    os.makedirs("./models", exist_ok=True)
-    download_model()
+    download_models()
